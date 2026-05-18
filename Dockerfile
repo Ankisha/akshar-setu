@@ -13,10 +13,10 @@ FROM python:3.11-slim
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libsndfile1 ffmpeg curl \
+    libsndfile1 ffmpeg curl zstd ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Ollama (CPU-only)
+# Install Ollama (CPU-only; install.sh needs zstd to extract the tarball)
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
 COPY server/requirements.txt ./requirements.txt
