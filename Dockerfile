@@ -27,6 +27,9 @@ COPY --from=frontend /app/dist ./dist/
 COPY start.sh ./start.sh
 RUN chmod +x ./start.sh
 
+# Railway volume mount point (attach one volume at /data)
+RUN mkdir -p /data
+
 WORKDIR /app/server
 
 EXPOSE 8642
