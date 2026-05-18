@@ -1,0 +1,10 @@
+node_modules/
+.expo/
+dist/
+server/data/
+server/.env.local
+server/.env
+.cursor/
+*.pyc
+__pycache__/
+.git/

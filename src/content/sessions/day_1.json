@@ -1,0 +1,181 @@
+{
+  "session_id": "day_1",
+  "level": 1,
+  "session_state": { "current_step_index": 0, "completed": false },
+  "meta": {
+    "estimated_duration_minutes": 15,
+    "skills_covered": [
+      "letter_recognition",
+      "sound_pronunciation",
+      "number_recognition"
+    ]
+  },
+  "revision": [
+    {
+      "id": "rev_1",
+      "type": "tap",
+      "question": "Kal kaun sa akshar seekha tha?",
+      "audio": "Kal kaun sa akshar seekha tha?",
+      "options": ["अ", "आ", "इ"],
+      "answer": "अ",
+      "skill": "letter_recognition",
+      "attempts_allowed": 2
+    }
+  ],
+  "parent_prep": {
+    "audio_instruction": "Aaj hum 'क' aur number 1 sikhaenge",
+    "steps": [
+      {
+        "id": "prep_1",
+        "text": "Bacche ko 'क' dikhaayein",
+        "audio": "Bacche ko 'क' dikhaayein"
+      },
+      {
+        "id": "prep_2",
+        "text": "Usse repeat karne ko bolein",
+        "audio": "Usse repeat karne ko bolein"
+      }
+    ],
+    "demo_audio": "Yeh 'क' hai, bolo 'क'"
+  },
+  "modules": [
+    {
+      "type": "literacy",
+      "concept": "क",
+      "word_example": "कबूतर",
+      "english_mapping": "Ka",
+      "steps": [
+        {
+          "id": "lit_1",
+          "actor": "system",
+          "type": "instruction",
+          "audio": "Yeh 'क' hai"
+        },
+        {
+          "id": "lit_2",
+          "actor": "system",
+          "type": "show",
+          "content": "क",
+          "ui_hint": "large_letter"
+        },
+        {
+          "id": "lit_3",
+          "actor": "child",
+          "type": "speech",
+          "prompt": "Bolo 'क'",
+          "audio": "Bolo 'क'",
+          "expected": ["क", "ka"],
+          "evaluation": { "type": "fuzzy", "threshold": 0.7 },
+          "skill": "sound_pronunciation",
+          "attempts_allowed": 2
+        },
+        {
+          "id": "lit_4",
+          "actor": "child",
+          "type": "tap",
+          "question": "Kaun sa 'क' hai?",
+          "audio": "Kaun sa 'क' hai?",
+          "options": ["क", "ख", "ग"],
+          "answer": "क",
+          "skill": "letter_recognition",
+          "attempts_allowed": 2
+        }
+      ]
+    },
+    {
+      "type": "numeracy",
+      "concept": "1",
+      "visual_count": "1 tree",
+      "english_mapping": "One",
+      "steps": [
+        {
+          "id": "num_1",
+          "actor": "system",
+          "type": "instruction",
+          "audio": "Yeh number 1 hai"
+        },
+        {
+          "id": "num_2",
+          "actor": "system",
+          "type": "show",
+          "content": "1",
+          "ui_hint": "large_number"
+        },
+        {
+          "id": "num_3",
+          "actor": "child",
+          "type": "speech",
+          "prompt": "Bolo 1",
+          "audio": "Bolo 1",
+          "expected": ["1", "one", "एक"],
+          "evaluation": { "type": "exact_or_keyword" },
+          "skill": "number_recognition",
+          "attempts_allowed": 2
+        },
+        {
+          "id": "num_4",
+          "actor": "child",
+          "type": "tap",
+          "question": "Kitne ped hain?",
+          "audio": "Kitne ped hain?",
+          "options": ["1", "2", "3"],
+          "answer": "1",
+          "skill": "counting",
+          "attempts_allowed": 2
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "prac_1",
+      "type": "speech",
+      "prompt": "Bolo 'क'",
+      "audio": "Bolo 'क'",
+      "expected": ["क", "ka"],
+      "evaluation": { "type": "fuzzy", "threshold": 0.7 },
+      "skill": "sound_pronunciation",
+      "attempts_allowed": 2
+    },
+    {
+      "id": "prac_2",
+      "type": "tap",
+      "question": "1 kaun sa hai?",
+      "audio": "1 kaun sa hai?",
+      "options": ["1", "2", "3"],
+      "answer": "1",
+      "skill": "number_recognition",
+      "attempts_allowed": 2
+    },
+    {
+      "id": "prac_3",
+      "type": "tap",
+      "question": "Kaun sa 'क' hai?",
+      "audio": "Kaun sa 'क' hai?",
+      "options": ["क", "ख", "ग"],
+      "answer": "क",
+      "skill": "letter_recognition",
+      "attempts_allowed": 2
+    }
+  ],
+  "adaptive": {
+    "enabled": true,
+    "trigger_threshold": 2,
+    "max_questions": 3,
+    "injection_point": "post_practice"
+  },
+  "feedback": {
+    "correct": {
+      "audio": "Bahut badhiya!",
+      "setu_reaction": "happy"
+    },
+    "incorrect": {
+      "audio": "Phir se koshish karo",
+      "setu_reaction": "encourage"
+    }
+  },
+  "progress": {
+    "reward": "star",
+    "unlock_next_session": true
+  }
+}

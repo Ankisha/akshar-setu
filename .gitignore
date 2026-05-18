@@ -1,0 +1,20 @@
+node_modules/
+.expo/
+dist/
+web-build/
+*.log
+.DS_Store
+.env
+.env.local
+server/.env.local
+server/output.mp3
+server/data/
+
+# Python — never commit virtualenvs (contains torch/transformers/etc.; breaks pushes)
+server/.venv/
+.venv/
+venv/
+__pycache__/
+*.pyc
+ios/
+android/

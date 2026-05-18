@@ -1,0 +1,27 @@
+---
+description: All user-visible app copy is Hindi (Devanagari); numbers use Latin digits 0-9 only
+alwaysApply: true
+---
+
+# UI language — Hindi script, Latin digits
+
+## Static labels (buttons, titles, hints, errors, accessibility)
+
+- Add or change strings **only** in `src/i18n/ui_hi.ts` via the `UI` object (or small helpers exported next to it). Do **not** embed English/Hinglish literals in JSX for user-facing chrome.
+- For new screens/components, import `UI` (and `rewardDisplay`, `skillUiLabel` when relevant) instead of typing copy inline.
+
+## Dynamic / lesson-facing text
+
+- Short Roman lesson tokens (options, chip labels, “correct answer” hints): use `formatLearningSurfaceText()` from `src/i18n/englishInDevanagari.ts`.
+- Mapping step English side as Devanagari transliteration: `englishLessonLabelToDevanagari()`.
+- **Any** string shown in the UI that might contain digits (server JSON, placement text, prompts, feedback body, analyses): wrap the **display** value with `toLatinDigits()` from the same module. Prefer applying at render time rather than changing TTS/audio payload unless product asks for parity.
+
+## Do not
+
+- Use Devanagari numerals (`०`-`९`) in UI; ASCII `0`-`9` only.
+- Scatter one-off Hindi strings inside `*.tsx` — add a key under `UI` instead.
+- Run `formatLearningSurfaceText` or aggressive transliteration on long narrative / TTS paragraphs meant to stay natural; normalize digits only (`toLatinDigits`) when those strings appear on screen.
+
+## Backend content
+
+- Prompts and fallbacks under `server/llm_content.py` should ask model output for Devanagari Hindi with **ASCII digits** for numbers (aligned with mixed-content TTS/STT prompts).

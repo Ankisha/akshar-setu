@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Akshar Setu",
+    "slug": "akshar-setu",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "aksharsetu",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#FFF7E6",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aksharsetu.mvp",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Akshar Setu uses the microphone so your child can practice speaking Hindi letters and numbers.",
+        "NSSpeechRecognitionUsageDescription": "Akshar Setu listens to your child's pronunciation to give gentle feedback."
+      }
+    },
+    "android": {
+      "package": "com.aksharsetu.mvp",
+      "permissions": ["android.permission.RECORD_AUDIO"]
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
