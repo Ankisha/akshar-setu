@@ -28,10 +28,11 @@ COPY start.sh ./start.sh
 RUN chmod +x ./start.sh
 
 # Railway volume mount point (attach one volume at /data)
-RUN mkdir -p /data
+RUN mkdir -p /data /app/server/data
 
 WORKDIR /app/server
 
+ENV PORT=8642
 EXPOSE 8642
 
 CMD ["/app/start.sh"]
