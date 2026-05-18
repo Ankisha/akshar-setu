@@ -15,6 +15,8 @@ Loads `GOOGLE_APPLICATION_CREDENTIALS` from `server/.env.local` then `server/.en
 (copy from `.env.example`). Do not commit `.env.local`.
 """
 
+print("[boot] main.py starting...", flush=True)
+
 import base64
 import os
 import tempfile
@@ -36,13 +38,17 @@ if _gcp_json and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
 from contextlib import asynccontextmanager
 from typing import Optional, Tuple
 
-import librosa
-import soundfile as sf
+print("[boot] importing fastapi/uvicorn...", flush=True)
 import uvicorn
 from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from google.cloud import texttospeech
+print("[boot] importing google cloud tts...", flush=True)
+try:
+    from google.cloud import texttospeech
+except Exception as e:
+    print(f"[boot] WARNING: google cloud tts import failed: {e}", flush=True)
+    texttospeech = None
 from pydantic import BaseModel, Field
 
 from llm_content import (
@@ -89,7 +95,7 @@ PORT = int(os.environ.get("PORT", "8642"))
 #   GOOGLE_TTS_VOICE_EN    — when use_english_voice=True (default en-IN-Neural2-A)
 #   GOOGLE_TTS_VOICE_EN_US — optional override for en-US Neural when language_code=en-US & English persona
 
-tts_client: Optional[texttospeech.TextToSpeechClient] = None
+tts_client = None
 
 
 def _locale_prefix_from_voice(voice_name: str) -> str:
@@ -136,6 +142,8 @@ def resolve_tts_voice(
 
 def load_tts_client() -> None:
     global tts_client
+    if texttospeech is None:
+        raise RuntimeError("google-cloud-texttospeech module failed to import")
     tts_client = texttospeech.TextToSpeechClient()
     v_hi, lc_hi = resolve_tts_voice("hi-IN", None, False)
     v_en, lc_en = resolve_tts_voice("en-IN", None, True)
@@ -246,6 +254,9 @@ def synthesize_text(request: SynthesizeRequest) -> dict:
 
 def prepare_wav_for_ollama(src_path: str) -> str:
     """16 kHz mono PCM WAV for Ollama's transcriptions API."""
+    import librosa
+    import soundfile as sf
+
     y, _ = librosa.load(src_path, sr=16_000, mono=True)
     tmp = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
     path = tmp.name
@@ -453,4 +464,5 @@ if DIST_DIR.is_dir():
 
 
 if __name__ == "__main__":
+    print(f"[boot] Starting uvicorn on {HOST}:{PORT}", flush=True)
     uvicorn.run("main:app", host=HOST, port=PORT, reload=False)
